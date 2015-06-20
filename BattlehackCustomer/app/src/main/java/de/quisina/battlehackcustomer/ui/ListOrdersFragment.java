@@ -2,11 +2,12 @@ package de.quisina.battlehackcustomer.ui;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
 import de.quisina.battlehackcustomer.R;
 
 /**
@@ -16,9 +17,13 @@ import de.quisina.battlehackcustomer.R;
  */
 public class ListOrdersFragment extends Fragment {
 
-    public static ListOrdersFragment newInstance() {
-        ListOrdersFragment fragment = new ListOrdersFragment();
+    private static final String CLOSED_ORDERS = "closedorders" ;
 
+    public static ListOrdersFragment newInstance(boolean b) {
+        ListOrdersFragment fragment = new ListOrdersFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(CLOSED_ORDERS, b);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -36,6 +41,15 @@ public class ListOrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_bookings, container, false);
+        View v  = inflater.inflate(R.layout.fragment_list_bookings, container, false);
+        ButterKnife.inject(this, v);
+
+        boolean closedOrders;
+        Bundle args = getArguments();
+        if(args != null && args.containsKey(CLOSED_ORDERS)) {
+            closedOrders = args.getBoolean(CLOSED_ORDERS, false);
+        }
+
+        return v;
     }
 }

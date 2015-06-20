@@ -25,7 +25,7 @@ public class Account extends Model {
     private String authToken;
 
     public Account() {super();}
-    
+
     public String getEmail() {
         return email;
     }

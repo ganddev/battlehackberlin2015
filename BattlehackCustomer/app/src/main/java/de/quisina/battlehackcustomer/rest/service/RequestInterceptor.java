@@ -15,8 +15,8 @@ public class RequestInterceptor implements retrofit.RequestInterceptor {
         request.addQueryParam("request_id", String.valueOf(UUID.randomUUID()));
         request.addQueryParam("app_version", BuildConfig.VERSION_NAME);
         request.addQueryParam("os", "android");
-        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getToken() != null && !BattlehackCustomerApplication.getAccount().getToken().isEmpty()) {
-            request.addHeader("auth-token", BattlehackCustomerApplication.getAccount().getToken());
+        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null && !BattlehackCustomerApplication.getAccount().getAuthToken().isEmpty()) {
+            request.addHeader("auth-token", BattlehackCustomerApplication.getAccount().getAuthToken());
         }
     }
 }

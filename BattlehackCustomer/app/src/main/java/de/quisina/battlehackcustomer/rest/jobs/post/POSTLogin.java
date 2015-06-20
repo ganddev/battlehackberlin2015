@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
 
+import de.greenrobot.event.EventBus;
+import de.quisina.battlehackcustomer.events.LoginEvent;
 import de.quisina.battlehackcustomer.rest.RestClient;
 
 /**
@@ -32,7 +34,8 @@ public class POSTLogin extends Job {
     @Override
     public void onRun() throws Throwable {
         if(jsonObject != null) {
-            mRestClient.getApiService().login(jsonObject);
+            String auth = mRestClient.getApiService().login(jsonObject);
+            EventBus.getDefault().post(new LoginEvent(true));
         }
     }
 

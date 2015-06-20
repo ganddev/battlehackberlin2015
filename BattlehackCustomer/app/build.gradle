@@ -26,6 +26,7 @@ dependencies {
     compile 'com.path:android-priority-jobqueue:1.1.2'
     compile 'net.steamcrafted:load-toast:1.0.6'
     compile 'com.jakewharton:butterknife:6.1.0'
-
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'me.amiee:nicetab:1.0.0'
     compile project(':activeandroid')
 }

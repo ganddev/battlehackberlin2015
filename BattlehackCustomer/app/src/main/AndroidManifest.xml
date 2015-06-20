@@ -27,6 +27,10 @@
             android:name="AA_DB_VERSION"
             android:value="1" />
 
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
     </application>
 
 </manifest>
