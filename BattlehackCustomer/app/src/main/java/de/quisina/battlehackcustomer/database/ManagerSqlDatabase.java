@@ -57,4 +57,20 @@ public class ManagerSqlDatabase {
             ActiveAndroid.endTransaction();
         }
     }
+
+    public static void saveAccounts(List<Account> customers) {
+        ActiveAndroid.beginTransaction();
+        try{
+            for (Account account : customers) {
+                account.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+    public static Order getOrderById(long id) {
+        return new Select().from(Order.class).where("_id = ?" , id).executeSingle();
+    }
 }

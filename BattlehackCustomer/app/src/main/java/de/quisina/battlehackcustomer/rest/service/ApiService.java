@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import de.quisina.battlehackcustomer.models.Account;
 import de.quisina.battlehackcustomer.models.Order;
 import de.quisina.battlehackcustomer.rest.wrappers.CustomerWrapper;
 import de.quisina.battlehackcustomer.rest.wrappers.MealWrapper;
@@ -17,8 +18,8 @@ import retrofit.http.POST;
 public interface ApiService {
 
 
-    @POST("/login")
-    String login(@Body JsonObject object);
+    @POST("/users/login")
+    Account login(@Body JsonObject object);
 
 
     @GET("/orders")

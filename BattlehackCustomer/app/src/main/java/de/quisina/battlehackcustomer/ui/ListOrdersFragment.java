@@ -1,6 +1,7 @@
 package de.quisina.battlehackcustomer.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -69,8 +70,10 @@ public class ListOrdersFragment extends Fragment {
         mOrdersLV.setAdapter(mAdapter);
         mOrdersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent detailActivity = new Intent(getActivity(), DetailOrderActivity.class);
+                detailActivity.putExtra(DetailOrderActivity.ORDER_ID, mAdapter.getItemId(position));
+                startActivity(detailActivity);
             }
         });
         return v;

@@ -1,5 +1,7 @@
 package de.quisina.battlehackcustomer.models;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -14,7 +16,7 @@ import java.lang.reflect.Type;
 /**
  * Created by bjornahlfeld on 20.06.15.
  */
-@Table(name = "meals")
+@Table(name = "meals" , id = BaseColumns._ID)
 public class Meal extends Model implements JsonDeserializer<Meal> {
 
     @Column(name = "name")
@@ -22,6 +24,22 @@ public class Meal extends Model implements JsonDeserializer<Meal> {
 
     @Column(name = "price")
     private float price;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
     public Meal() { super(); }
 

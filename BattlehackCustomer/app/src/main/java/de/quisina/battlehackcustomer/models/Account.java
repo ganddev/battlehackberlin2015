@@ -36,6 +36,14 @@ public class Account extends Model implements JsonDeserializer<Account> {
 
     public Account() {super();}
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -72,8 +80,22 @@ public class Account extends Model implements JsonDeserializer<Account> {
     public Account deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Account account = new Account();
         JsonObject obj = json.getAsJsonObject();
+        if(!obj.get("id").isJsonNull()) {
+            account.setId(obj.get("id").getAsLong());
+        }
+        if(obj.get("token") != null && !obj.get("token").isJsonNull()) {
+            account.setAuthToken(obj.get("token").getAsString());
+        }
+        if(!obj.get("name").isJsonNull()) {
+            account.setUserName(obj.get("name").getAsString());
+        }
+        if(!obj.get("email").isJsonNull()) {
+            account.setEmail(obj.get("email").getAsString());
+        }
 
-
+        if(!obj.get("role").isJsonNull()) {
+            account.setRole(obj.get("role").getAsString());
+        }
         return account;
     }
 }

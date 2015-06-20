@@ -1,12 +1,14 @@
 package de.quisina.battlehackcustomer.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -19,11 +21,20 @@ import de.quisina.battlehackcustomer.models.Order;
  */
 public class OrderAdapter extends ArrayAdapter<Order> {
 
+    private Typeface tfMedium;
+
+    private SimpleDateFormat mSdf;
 
     public OrderAdapter(Context context, List<Order> objects) {
         super(context, R.layout.list_item_order, objects);
+        tfMedium = Typeface.createFromAsset(context.getAssets(), "Roboto-Medium.ttf");
+        mSdf = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     }
 
+    @Override
+    public long getItemId(int position) {
+        return getItem(position).getId();
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -40,8 +51,10 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         final Order order = getItem(position);
         //TODO style the shit!!!
-
-
+        holder.mCircleLabel.setTypeface(tfMedium);
+        holder.mCircleLabel.setText(order.getId().toString());
+        holder.mHistoryLabel.setText(order.getMeal().getName());
+        holder.mHistoryTime.setText(mSdf.format(order.getOrderedAt()));
         return convertView;
     }
 

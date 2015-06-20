@@ -9,4 +9,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="open_orders">Open orders</string>
     <string name="closed_orders">Closed orders</string>
+    <string name="title_activity_detail_order">DetailOrderActivity</string>
 </resources>

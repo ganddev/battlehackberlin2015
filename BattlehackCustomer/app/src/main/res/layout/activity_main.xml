@@ -40,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/editText_password"
         android:layout_marginBottom="10dp"
-        android:hint="Username"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
         android:minHeight="@dimen/min_height"
         android:textColor="@android:color/white"
         android:textColorHint="#FFFFFF">
