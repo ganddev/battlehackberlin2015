@@ -53,8 +53,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         //TODO style the shit!!!
         holder.mCircleLabel.setTypeface(tfMedium);
         holder.mCircleLabel.setText(order.getId().toString());
-        holder.mHistoryLabel.setText(order.getMeal().getName());
-        holder.mHistoryTime.setText(mSdf.format(order.getOrderedAt()));
+        holder.mHistoryLabel.setText(order.getName());
+        holder.mHistoryTime.setText(mSdf.format(order.getCreatedAt()));
         return convertView;
     }
 

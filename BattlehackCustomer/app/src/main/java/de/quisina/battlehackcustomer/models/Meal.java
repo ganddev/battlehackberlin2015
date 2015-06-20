@@ -48,8 +48,15 @@ public class Meal extends Model implements JsonDeserializer<Meal> {
     public Meal deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Meal meal = new Meal();
         JsonObject object = json.getAsJsonObject();
-
-
+        if(!object.get("id").isJsonNull()) {
+            meal.setId(object.get("id").getAsLong());
+        }
+        if(!object.get("name").isJsonNull()) {
+            meal.setName(object.get("name").getAsString());
+        }
+        if(!object.get("price").isJsonNull()) {
+            meal.setPrice(object.get("price").getAsFloat());
+        }
         return meal;
     }
 }

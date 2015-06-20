@@ -1,4 +1,4 @@
-package de.quisina.battlehackcustomer.rest.jobs.post.get;
+package de.quisina.battlehackcustomer.rest.jobs.post;
 
 import android.content.Context;
 
@@ -6,19 +6,17 @@ import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
 
 import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
-import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.rest.RestClient;
-import de.quisina.battlehackcustomer.rest.wrappers.OrderWrapper;
+import retrofit.client.Response;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
  */
-public class GETOrders extends Job {
-
+public class POSTOrderReceived extends Job {
 
     private final RestClient mRestClient;
 
-    public GETOrders(Context ctx) {
+    public POSTOrderReceived(Context ctx) {
         super(new Params(1000).requireNetwork());
         mRestClient = new RestClient(ctx);
     }
@@ -30,10 +28,10 @@ public class GETOrders extends Job {
 
     @Override
     public void onRun() throws Throwable {
-        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null){
-            OrderWrapper wrapper = mRestClient.getApiService().getOrders();
-            ManagerSqlDatabase.saveOrders(wrapper.getOrders());
+        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null) {
+            Response resp = mRestClient.getApiService().setOrderReceived();
         }
+
     }
 
     @Override

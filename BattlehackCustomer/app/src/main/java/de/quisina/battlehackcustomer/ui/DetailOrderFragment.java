@@ -41,6 +41,9 @@ public class DetailOrderFragment extends Fragment implements NumberPickerDialogF
     @InjectView(R.id.tv_date)
     TextView mOrderDate;
 
+    @InjectView(R.id.tv_receipe)
+    TextView mReceipe;
+
 
     public DetailOrderFragment() {
         // Required empty public constructor
@@ -60,10 +63,11 @@ public class DetailOrderFragment extends Fragment implements NumberPickerDialogF
              order = ManagerSqlDatabase.getOrderById(args.getLong(DetailOrderActivity.ORDER_ID));
         }
         if(order != null) {
-            mMealName.setText(order.getMeal().getName());
-            mCustomerName.setText(order.getCustomer().getUserName());
+            mMealName.setText(order.getName());
+            mCustomerName.setText(order.getCustomerName());
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-            mOrderDate.setText(sdf.format(order.getOrderedAt()));
+            mOrderDate.setText(sdf.format(order.getCreatedAt()));
+
         }
         return v;
     }

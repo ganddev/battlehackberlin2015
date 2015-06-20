@@ -60,12 +60,8 @@ public class ListOrdersFragment extends Fragment {
         if(args != null && args.containsKey(CLOSED_ORDERS)) {
             closedOrders = args.getBoolean(CLOSED_ORDERS, false);
         }
-
-        if(closedOrders) {
-            mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getClosedOrders());
-        } else {
             mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getOpenOrders());
-        }
+
 
         mOrdersLV.setAdapter(mAdapter);
         mOrdersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -29,6 +29,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         if(ab != null) {
             ab.setHomeButtonEnabled(true);
             ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle("Details");
         }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

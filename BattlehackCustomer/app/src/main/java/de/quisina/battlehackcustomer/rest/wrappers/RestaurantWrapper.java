@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import de.quisina.battlehackcustomer.models.Account;
+import de.quisina.battlehackcustomer.models.Restaurant;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
  */
-public class CustomerWrapper {
+public class RestaurantWrapper {
 
     @SerializedName("state")
     private String state;
@@ -19,7 +19,7 @@ public class CustomerWrapper {
 
 
     @SerializedName("result")
-    private List<Account> customers;
+    private List<Restaurant> restaurants;
 
 
     public String getState() {
@@ -38,11 +38,11 @@ public class CustomerWrapper {
         this.count = count;
     }
 
-    public void setCustomers(List<Account> customers) {
-        this.customers = customers;
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
 
-
-
-    public List<Account> getCustomers () { return  customers; }
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
 }

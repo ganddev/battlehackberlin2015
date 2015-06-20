@@ -8,6 +8,7 @@ import java.util.List;
 import de.quisina.battlehackcustomer.models.Account;
 import de.quisina.battlehackcustomer.models.Meal;
 import de.quisina.battlehackcustomer.models.Order;
+import de.quisina.battlehackcustomer.models.Restaurant;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
@@ -39,12 +40,9 @@ public class ManagerSqlDatabase {
     }
 
     public static List<Order> getOpenOrders() {
-        return new Select().from(Order.class).where("closed = ? ", false).execute();
+        return new Select().from(Order.class).execute();
     }
 
-    public static List<Order> getClosedOrders() {
-        return new Select().from(Order.class).where("closed = ?", true).execute();
-    }
 
     public static void saveMeals(List<Meal> meals) {
         ActiveAndroid.beginTransaction();
@@ -72,5 +70,21 @@ public class ManagerSqlDatabase {
 
     public static Order getOrderById(long id) {
         return new Select().from(Order.class).where("_id = ?" , id).executeSingle();
+    }
+
+    public static void saveRestaurants(List<Restaurant> restaurants) {
+        ActiveAndroid.beginTransaction();
+        try{
+            for(Restaurant restaurant : restaurants) {
+                restaurant.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+    public static List<Restaurant> getRestaurants() {
+        return new Select().from(Restaurant.class).execute();
     }
 }

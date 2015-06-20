@@ -8,17 +8,16 @@ import com.path.android.jobqueue.Params;
 import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.rest.RestClient;
-import de.quisina.battlehackcustomer.rest.wrappers.OrderWrapper;
+import de.quisina.battlehackcustomer.rest.wrappers.RestaurantWrapper;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
  */
-public class GETOrders extends Job {
-
+public class GETRestaurants extends Job {
 
     private final RestClient mRestClient;
 
-    public GETOrders(Context ctx) {
+    public GETRestaurants(Context ctx) {
         super(new Params(1000).requireNetwork());
         mRestClient = new RestClient(ctx);
     }
@@ -30,9 +29,9 @@ public class GETOrders extends Job {
 
     @Override
     public void onRun() throws Throwable {
-        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null){
-            OrderWrapper wrapper = mRestClient.getApiService().getOrders();
-            ManagerSqlDatabase.saveOrders(wrapper.getOrders());
+        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null) {
+            RestaurantWrapper wrapper = mRestClient.getApiService().getRestaurants();
+            ManagerSqlDatabase.saveRestaurants(wrapper.getRestaurants());
         }
     }
 
