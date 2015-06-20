@@ -17,13 +17,11 @@ import retrofit.http.Path;
  */
 public interface ApiService {
 
-
     @POST("/users/login")
     Account login(@Body JsonObject object);
 
     @POST("/order/received")
     Response setOrderReceived();
-
 
     @GET("/orders")
     OrderWrapper getOrders();

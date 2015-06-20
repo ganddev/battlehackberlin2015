@@ -25,6 +25,8 @@ public class Meal extends Model implements JsonDeserializer<Meal> {
     @Column(name = "price")
     private float price;
 
+    public Meal() { super(); }
+
     public String getName() {
         return name;
     }
@@ -40,9 +42,7 @@ public class Meal extends Model implements JsonDeserializer<Meal> {
     public void setPrice(float price) {
         this.price = price;
     }
-
-    public Meal() { super(); }
-
+    
 
     @Override
     public Meal deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
