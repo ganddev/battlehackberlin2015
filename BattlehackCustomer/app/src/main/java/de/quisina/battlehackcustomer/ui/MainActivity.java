@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.quisina.battlehackcustomer.R;
 import de.quisina.battlehackcustomer.adapters.MainPageAdapter;
+import me.amiee.nicetab.NiceTabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.pager)
     ViewPager mPager;
 
+    @InjectView(R.id.sliding_tabs)
+    NiceTabLayout mSlidingTabLayout;
 
     MainPageAdapter mainPageAdapter;
 
@@ -25,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ButterKnife.inject(this);
-        mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
+        mainPageAdapter = new MainPageAdapter(getSupportFragmentManager(), this);
+        mPager.setAdapter(mainPageAdapter);
+        mSlidingTabLayout.setViewPager(mPager);
     }
 
 

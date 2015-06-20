@@ -5,12 +5,19 @@ import android.provider.BaseColumns;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
  */
 @Table(name = "account", id = BaseColumns._ID)
-public class Account extends Model {
+public class Account extends Model implements JsonDeserializer<Account> {
 
     @Column(name = "email")
     private String email;
@@ -23,6 +30,9 @@ public class Account extends Model {
 
     @Column(name = "auth_token")
     private String authToken;
+
+    @Column(name = "role")
+    private String role;
 
     public Account() {super();}
 
@@ -58,4 +68,12 @@ public class Account extends Model {
         this.authToken = authToken;
     }
 
+    @Override
+    public Account deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        Account account = new Account();
+        JsonObject obj = json.getAsJsonObject();
+
+
+        return account;
+    }
 }

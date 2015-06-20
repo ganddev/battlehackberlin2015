@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 import de.quisina.battlehackcustomer.models.Order;
+import de.quisina.battlehackcustomer.rest.wrappers.CustomerWrapper;
+import de.quisina.battlehackcustomer.rest.wrappers.MealWrapper;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
@@ -22,5 +24,10 @@ public interface ApiService {
     @GET("/orders")
     List<Order> getOrders();
 
+    @GET("/users")
+    CustomerWrapper getUsers();
+
+    @GET("/meals")
+    MealWrapper getMeals();
 
 }

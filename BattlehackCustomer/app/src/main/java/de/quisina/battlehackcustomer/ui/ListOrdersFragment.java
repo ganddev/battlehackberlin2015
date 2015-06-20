@@ -6,9 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.quisina.battlehackcustomer.R;
+import de.quisina.battlehackcustomer.adapters.OrderAdapter;
+import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +23,11 @@ import de.quisina.battlehackcustomer.R;
 public class ListOrdersFragment extends Fragment {
 
     private static final String CLOSED_ORDERS = "closedorders" ;
+
+    @InjectView(R.id.lv_orders)
+    ListView mOrdersLV;
+
+    OrderAdapter mAdapter;
 
     public static ListOrdersFragment newInstance(boolean b) {
         ListOrdersFragment fragment = new ListOrdersFragment();
@@ -44,12 +54,32 @@ public class ListOrdersFragment extends Fragment {
         View v  = inflater.inflate(R.layout.fragment_list_bookings, container, false);
         ButterKnife.inject(this, v);
 
-        boolean closedOrders;
+        boolean closedOrders = false;
         Bundle args = getArguments();
         if(args != null && args.containsKey(CLOSED_ORDERS)) {
             closedOrders = args.getBoolean(CLOSED_ORDERS, false);
         }
 
+        if(closedOrders) {
+            mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getClosedOrders());
+        } else {
+            mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getOpenOrders());
+        }
+
+        mOrdersLV.setAdapter(mAdapter);
+        mOrdersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
         return v;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        ButterKnife.reset(this);
+        super.onDestroy();
     }
 }

@@ -7,7 +7,6 @@ import com.activeandroid.ActiveAndroid;
 import com.path.android.jobqueue.JobManager;
 import com.path.android.jobqueue.config.Configuration;
 
-import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.models.Account;
 
 /**
@@ -26,7 +25,8 @@ public class BattlehackCustomerApplication extends Application {
         super.onCreate();
         ActiveAndroid.initialize(this, false);
 
-        sAccount = ManagerSqlDatabase.getAcount();
+        //sAccount = ManagerSqlDatabase.getAcount();
+        setUpTestUser();
     }
 
     public static Account getAccount() {
@@ -44,5 +44,14 @@ public class BattlehackCustomerApplication extends Application {
             sJobManager = new JobManager(ctx, configuration);
         }
         return sJobManager;
+    }
+
+    private void setUpTestUser() {
+        sAccount = new Account();
+        sAccount.setId(1L);
+        sAccount.setEmail("test@test.de");
+        sAccount.setUserName("Testor");
+        sAccount.setAuthToken("fasdfasdf");
+        sAccount.setPassword("123456");
     }
 }

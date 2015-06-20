@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context="de.quisina.battlehackcustomer.ui.DetailOrderFragment">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/primary">
+
+    </RelativeLayout>
+
+
+    <com.melnykov.fab.FloatingActionButton
+        android:layout_marginTop="172dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/fab"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/accent_color"
+        fab:fab_colorPressed="@color/fab_pressed"
+        fab:fab_colorRipple="@color/ripple" />
+
+
+</FrameLayout>

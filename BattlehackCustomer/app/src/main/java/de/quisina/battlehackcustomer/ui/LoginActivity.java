@@ -1,5 +1,6 @@
 package de.quisina.battlehackcustomer.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,6 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         EventBus.getDefault().register(this);
+
+        if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null && !BattlehackCustomerApplication.getAccount().getAuthToken().isEmpty()) {
+            goToMain();
+        }
     }
 
     @Override
@@ -83,8 +88,14 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "got event");
         if(event.isSucceed() && mLt != null) {
             mLt.success();
+            goToMain();
         } else {
             mLt.error();
         }
+    }
+
+    private void goToMain() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
     }
 }
