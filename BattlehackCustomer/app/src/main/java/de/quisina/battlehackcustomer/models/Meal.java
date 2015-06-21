@@ -42,7 +42,7 @@ public class Meal extends Model implements JsonDeserializer<Meal> {
     public void setPrice(float price) {
         this.price = price;
     }
-    
+
 
     @Override
     public Meal deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

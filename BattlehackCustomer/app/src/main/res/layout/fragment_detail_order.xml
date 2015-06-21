@@ -1,62 +1,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context="de.quisina.battlehackcustomer.ui.DetailOrderFragment">
 
     <RelativeLayout
         android:id="@+id/container"
-        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/primary">
+
+        <ImageView
+            android:id="@+id/iv_meal"
+            android:src="@mipmap/meal_pic"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <TextView
             android:id="@+id/tv_meal_name"
-            android:textColor="@android:color/white"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv_customer_name"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
             android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_meal_name"
-            android:textSize="16sp"/>
+            android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tv_customer_name"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 
     <com.melnykov.fab.FloatingActionButton
-        android:layout_marginTop="172dp"
-        android:layout_marginRight="16dp"
         android:id="@+id/fab"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="172dp"
         android:src="@mipmap/ic_navigation_check"
         fab:fab_colorNormal="@color/accent_color"
         fab:fab_colorPressed="@color/fab_pressed"
         fab:fab_colorRipple="@color/ripple" />
 
-    <TextView
-        android:id="@+id/tv_receipe"
+    
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="15dp"
         android:layout_below="@id/container"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/circular_image"
+        android:src="@mipmap/bjoern"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:border_color="#EEEEEE"
+        app:border_width="4dp"/>
+
+    <TextView
+        android:id="@+id/tv_customer_name"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circular_image"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"/>
-
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_customer_name"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 </RelativeLayout>

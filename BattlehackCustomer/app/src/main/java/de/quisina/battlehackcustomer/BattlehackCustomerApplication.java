@@ -7,9 +7,12 @@ import com.activeandroid.ActiveAndroid;
 import com.path.android.jobqueue.JobManager;
 import com.path.android.jobqueue.config.Configuration;
 
+import java.util.Date;
+
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.models.Account;
 import de.quisina.battlehackcustomer.models.Meal;
+import de.quisina.battlehackcustomer.models.Order;
 
 /**
  * Created by bjornahlfeld on 20.06.15.
@@ -29,6 +32,7 @@ public class BattlehackCustomerApplication extends Application {
 
         sAccount = ManagerSqlDatabase.getAcount();
         //setUpTestUser();
+        setUpTestOrder();
         setUpTestMeals();
         setUpTestCusomter();
     }
@@ -73,5 +77,16 @@ public class BattlehackCustomerApplication extends Application {
         testMeal.setName("Pasta");
         testMeal.setPrice(3.59f);
         testMeal.save();
+    }
+
+    private void setUpTestOrder() {
+        Order testOrder = new Order();
+        testOrder.setId(2L);
+        testOrder.setName("TEST ORDER");
+        testOrder.setCreatedAt(new Date());
+        testOrder.setStatus("paid");
+        testOrder.setCustomerName("Test buyer");
+        testOrder.setTransactionId(123134);
+        testOrder.save();
     }
 }

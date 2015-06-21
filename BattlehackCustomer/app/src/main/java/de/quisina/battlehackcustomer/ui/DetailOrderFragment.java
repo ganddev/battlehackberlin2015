@@ -1,12 +1,14 @@
 package de.quisina.battlehackcustomer.ui;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doomonafireball.betterpickers.numberpicker.NumberPickerBuilder;
@@ -18,6 +20,7 @@ import java.text.SimpleDateFormat;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import de.quisina.battlehackcustomer.R;
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.models.Order;
@@ -25,7 +28,7 @@ import de.quisina.battlehackcustomer.models.Order;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailOrderFragment extends Fragment implements NumberPickerDialogFragment.NumberPickerDialogHandler  {
+public class DetailOrderFragment extends Fragment implements NumberPickerDialogFragment.NumberPickerDialogHandler {
 
 
     private static final String TAG = DetailOrderFragment.class.getSimpleName();
@@ -41,8 +44,15 @@ public class DetailOrderFragment extends Fragment implements NumberPickerDialogF
     @InjectView(R.id.tv_date)
     TextView mOrderDate;
 
-    @InjectView(R.id.tv_receipe)
-    TextView mReceipe;
+    @InjectView(R.id.iv_meal)
+    ImageView mealImage;
+
+    @InjectView(R.id.circular_image)
+    CircleImageView mCustomerImage;
+
+
+    private Typeface mBoldTypeFace;
+    private Typeface mMediumTypeFace;
 
 
     public DetailOrderFragment() {
@@ -59,15 +69,18 @@ public class DetailOrderFragment extends Fragment implements NumberPickerDialogF
 
         Bundle args = getArguments();
         Order order = null;
-        if(args != null && args.containsKey(DetailOrderActivity.ORDER_ID)) {
-             order = ManagerSqlDatabase.getOrderById(args.getLong(DetailOrderActivity.ORDER_ID));
+        if (args != null && args.containsKey(DetailOrderActivity.ORDER_ID)) {
+            order = ManagerSqlDatabase.getOrderById(args.getLong(DetailOrderActivity.ORDER_ID));
         }
-        if(order != null) {
+        if (order != null) {
+            mBoldTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Bold.ttf");
+            mMediumTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Medium.ttf");
+            mMealName.setTypeface(mBoldTypeFace);
             mMealName.setText(order.getName());
+            mCustomerName.setTypeface(mMediumTypeFace);
             mCustomerName.setText(order.getCustomerName());
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-            mOrderDate.setText(sdf.format(order.getCreatedAt()));
-
+            mOrderDate.setText("Ordered at: " +sdf.format(order.getCreatedAt()));
         }
         return v;
     }

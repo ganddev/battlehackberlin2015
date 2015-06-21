@@ -5,8 +5,11 @@ import android.content.Context;
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
 
+import java.util.List;
+
 import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
+import de.quisina.battlehackcustomer.models.Restaurant;
 import de.quisina.battlehackcustomer.rest.RestClient;
 import de.quisina.battlehackcustomer.rest.wrappers.OrderWrapper;
 
@@ -31,8 +34,11 @@ public class GETOrders extends Job {
     @Override
     public void onRun() throws Throwable {
         if(BattlehackCustomerApplication.getAccount() != null && BattlehackCustomerApplication.getAccount().getAuthToken() != null){
-            OrderWrapper wrapper = mRestClient.getApiService().getOrders();
-            ManagerSqlDatabase.saveOrders(wrapper.getOrders());
+            List<Restaurant> restaurantList = ManagerSqlDatabase.getRestaurants();
+            for(Restaurant restaurant : restaurantList) {
+                OrderWrapper wrapper = mRestClient.getApiService().getOrders(restaurant.getId());
+                ManagerSqlDatabase.saveOrders(wrapper.getOrders());
+            }
         }
     }
 

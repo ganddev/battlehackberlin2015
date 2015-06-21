@@ -23,8 +23,8 @@ public interface ApiService {
     @POST("/order/received")
     Response setOrderReceived();
 
-    @GET("/orders")
-    OrderWrapper getOrders();
+    @GET("/restaurants/{id}/orders")
+    OrderWrapper getOrders(@Path("id") long restaurantId);
 
     @GET("/restaurants/{id}/meals")
     MealWrapper getMeals(@Path("id") long restaurantId);
