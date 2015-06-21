@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import de.quisina.battlehackcustomer.models.Meal;
-
 /**
  * Created by bjornahlfeld on 20.06.15.
  */

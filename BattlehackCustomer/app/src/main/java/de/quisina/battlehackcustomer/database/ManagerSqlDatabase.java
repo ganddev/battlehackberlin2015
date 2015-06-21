@@ -6,7 +6,6 @@ import com.activeandroid.query.Select;
 import java.util.List;
 
 import de.quisina.battlehackcustomer.models.Account;
-import de.quisina.battlehackcustomer.models.Meal;
 import de.quisina.battlehackcustomer.models.Order;
 import de.quisina.battlehackcustomer.models.Restaurant;
 

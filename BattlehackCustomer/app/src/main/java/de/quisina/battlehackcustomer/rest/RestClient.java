@@ -5,7 +5,6 @@ import android.content.Context;
 import com.google.gson.GsonBuilder;
 
 import de.quisina.battlehackcustomer.models.Account;
-import de.quisina.battlehackcustomer.models.Meal;
 import de.quisina.battlehackcustomer.models.Order;
 import de.quisina.battlehackcustomer.models.Restaurant;
 import de.quisina.battlehackcustomer.rest.service.ApiService;

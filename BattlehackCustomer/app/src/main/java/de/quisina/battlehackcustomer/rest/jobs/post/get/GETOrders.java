@@ -7,8 +7,10 @@ import com.path.android.jobqueue.Params;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
+import de.quisina.battlehackcustomer.events.OrdersLoaded;
 import de.quisina.battlehackcustomer.models.Restaurant;
 import de.quisina.battlehackcustomer.rest.RestClient;
 import de.quisina.battlehackcustomer.rest.wrappers.OrderWrapper;
@@ -39,6 +41,7 @@ public class GETOrders extends Job {
                 OrderWrapper wrapper = mRestClient.getApiService().getOrders(restaurant.getId());
                 ManagerSqlDatabase.saveOrders(wrapper.getOrders());
             }
+            EventBus.getDefault().post(new OrdersLoaded());
         }
     }
 

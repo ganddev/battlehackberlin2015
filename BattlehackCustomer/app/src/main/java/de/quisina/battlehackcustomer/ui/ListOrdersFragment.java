@@ -4,17 +4,28 @@ package de.quisina.battlehackcustomer.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.path.android.jobqueue.JobManager;
+
+import net.steamcrafted.loadtoast.LoadToast;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import de.greenrobot.event.EventBus;
+import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
 import de.quisina.battlehackcustomer.R;
 import de.quisina.battlehackcustomer.adapters.OrderAdapter;
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
+import de.quisina.battlehackcustomer.events.OrdersLoaded;
+import de.quisina.battlehackcustomer.events.RestaurantsLoaded;
+import de.quisina.battlehackcustomer.rest.jobs.post.get.GETOrders;
+import de.quisina.battlehackcustomer.rest.jobs.post.get.GETRestaurants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +35,14 @@ import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 public class ListOrdersFragment extends Fragment {
 
     private static final String CLOSED_ORDERS = "closedorders" ;
+    private static final String TAG = ListOrdersFragment.class.getSimpleName();
 
     @InjectView(R.id.lv_orders)
     ListView mOrdersLV;
 
     OrderAdapter mAdapter;
+    private JobManager jm;
+    private LoadToast mLt;
 
     public static ListOrdersFragment newInstance(boolean b) {
         ListOrdersFragment fragment = new ListOrdersFragment();
@@ -45,7 +59,7 @@ public class ListOrdersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        jm = BattlehackCustomerApplication.getJobManager(getActivity());
     }
 
     @Override
@@ -55,12 +69,14 @@ public class ListOrdersFragment extends Fragment {
         View v  = inflater.inflate(R.layout.fragment_list_bookings, container, false);
         ButterKnife.inject(this, v);
 
+        mLt = new LoadToast(getActivity());
+
         boolean closedOrders = false;
         Bundle args = getArguments();
         if(args != null && args.containsKey(CLOSED_ORDERS)) {
             closedOrders = args.getBoolean(CLOSED_ORDERS, false);
         }
-            mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getOpenOrders());
+        mAdapter = new OrderAdapter(getActivity(), ManagerSqlDatabase.getOpenOrders());
 
 
         mOrdersLV.setAdapter(mAdapter);
@@ -75,10 +91,43 @@ public class ListOrdersFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+        loadRestaurants();
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    private void loadRestaurants() {
+        GETRestaurants restaurants = new GETRestaurants(getActivity());
+        jm.addJobInBackground(restaurants);
+    }
+
+    private void loadOrders() {
+        mLt.setText("Load orders");
+        mLt.show();
+        GETOrders orders = new GETOrders(getActivity());
+        jm.addJobInBackground(orders);
+    }
 
     @Override
     public void onDestroy() {
         ButterKnife.reset(this);
         super.onDestroy();
+    }
+
+    public void onEventMainThread(RestaurantsLoaded event) {
+        Log.d(TAG, "got event");
+        loadOrders();
+    }
+
+    public void onEventMainThread(OrdersLoaded event) {
+        mLt.success();
     }
 }

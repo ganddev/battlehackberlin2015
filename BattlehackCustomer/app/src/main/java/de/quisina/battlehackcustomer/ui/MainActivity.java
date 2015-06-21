@@ -6,10 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.path.android.jobqueue.JobManager;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import de.quisina.battlehackcustomer.BattlehackCustomerApplication;
 import de.quisina.battlehackcustomer.R;
 import de.quisina.battlehackcustomer.adapters.MainPageAdapter;
+import de.quisina.battlehackcustomer.rest.jobs.post.get.GETRestaurants;
 import me.amiee.nicetab.NiceTabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mainPageAdapter = new MainPageAdapter(getSupportFragmentManager(), this);
         mPager.setAdapter(mainPageAdapter);
         mSlidingTabLayout.setViewPager(mPager);
+
     }
 
 

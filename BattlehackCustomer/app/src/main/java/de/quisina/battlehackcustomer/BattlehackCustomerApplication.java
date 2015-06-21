@@ -11,7 +11,6 @@ import java.util.Date;
 
 import de.quisina.battlehackcustomer.database.ManagerSqlDatabase;
 import de.quisina.battlehackcustomer.models.Account;
-import de.quisina.battlehackcustomer.models.Meal;
 import de.quisina.battlehackcustomer.models.Order;
 
 /**
